@@ -12,11 +12,11 @@
     "url": "git+https://github.com/Kitounet/BoulotBot.git"
   },
   "keywords": [
-      "Twitch",
-      "node.js",
-      "chat",
-      "bot"
-    ],
+    "Twitch",
+    "node.js",
+    "chat",
+    "bot"
+  ],
   "author": "Kitounet",
   "license": "ISC",
   "bugs": {
@@ -25,6 +25,8 @@
   "homepage": "https://github.com/Kitounet/BoulotBot#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "random-choice": "^1.0.0",
+    "simple-json-db": "^2.0.0",
     "tmi.js": "^1.8.5"
   }
 }

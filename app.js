@@ -3,6 +3,10 @@
 require('dotenv').config();
 
 const tmi = require('tmi.js');
+const JSONdb = require('simple-json-db');
+const randomChoice = require('random-choice')
+
+const db = new JSONdb('boulotDB.json');
 
 // Setup connection configurations
 // These include the channel, username and password
@@ -20,24 +24,38 @@ const client = new tmi.Client({
         password: `oauth:${process.env.TWITCH_OAUTH}`
     },
     channels: [`${process.env.TWITCH_CHANNEL}`]
-});
-
-// Connect to the channel specified using the setings found in the configurations
-// Any error found shall be logged out in the console
-client.connect().catch(console.error);
-
-// We shall pass the parameters which shall be required
-client.on('message', (channel, tags, message, self) => {
-    // Lack of this statement or it's inverse (!self) will make it in active
-    if (!self) return;
-
-    //Start parsing
-    if (message.toLowerCase().includes("boulot")) {
-        client.say(channel,`@${tags.username}, t'as dis boulot attention !`)
-        console.log("IL A DIT BOULOT")
-    }
-
+    });
     
-// This logs out all the messages sent on the channel on the terminal
+    // Connect to the channel specified using the setings found in the configurations
+    // Any error found shall be logged out in the console
+    client.connect().catch(console.error);
+
+    // We shall pass the parameters which shall be required
+    client.on('message', (channel, tags, message, self) => {
+    // Lack of this statement or it's inverse (!self) will make it in active
+    if (self) return;
+    
+    if (message.toLowerCase().includes("boulot")) {
+        if (db.has(tags.username)) 
+        {
+            var count = db.get(tags.username)
+            ++count
+            db.set(tags.username, count)
+            console.log(0.1+ count/1000)
+
+            if (randomChoice([true, false], [(0.1+ count/1000), 1])) {
+                client.say(channel, `/timeout ${tags.username} 60`)
+                client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
+            }
+              
+        } else {
+            db.set(tags.username, 1)
+
+            if (randomChoice([true, false], [(0.1+ 1/1000), 1])) {
+                client.say(channel, `/timeout ${tags.username} 60`)
+                client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
+            }
+        }
+    }
 
 });
