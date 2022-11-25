@@ -5,6 +5,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const JSONdb = require('simple-json-db');
 const randomChoice = require('random-choice')
+const banTime = 600
 
 const db = new JSONdb('boulotDB.json');
 
@@ -41,10 +42,9 @@ const client = new tmi.Client({
             var count = db.get(tags.username)
             ++count
             db.set(tags.username, count)
-            console.log(0.1+ count/1000)
 
             if (randomChoice([true, false], [(0.1+ count/1000), 1])) {
-                client.say(channel, `/timeout ${tags.username} 60`)
+                client.say(channel, `/timeout ${tags.username} ${banTime}`)
                 client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
             }
               
@@ -52,7 +52,7 @@ const client = new tmi.Client({
             db.set(tags.username, 1)
 
             if (randomChoice([true, false], [(0.1+ 1/1000), 1])) {
-                client.say(channel, `/timeout ${tags.username} 60`)
+                client.say(channel, `/timeout ${tags.username} ${banTime}`)
                 client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
             }
         }
