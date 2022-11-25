@@ -1,0 +1,29 @@
+{
+  "name": "boulotbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kitounet/BoulotBot.git"
+  },
+  "keywords": [
+      "Twitch",
+      "node.js",
+      "chat",
+      "bot"
+    ],
+  "author": "Kitounet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kitounet/BoulotBot/issues"
+  },
+  "homepage": "https://github.com/Kitounet/BoulotBot#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "tmi.js": "^1.8.5"
+  }
+}
