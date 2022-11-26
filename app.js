@@ -5,7 +5,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const JSONdb = require('simple-json-db');
 const randomChoice = require('random-choice')
-const banTime = 600
+const banTime = 60
 
 const db = new JSONdb('boulotDB.json');
 
@@ -55,6 +55,21 @@ const client = new tmi.Client({
                 client.say(channel, `/timeout ${tags.username} ${banTime}`)
                 client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
             }
+        }
+    } else {
+        switch (message.toLowerCase()) {
+            case '!msgcount':
+                if (db.has(tags.username)) {
+                    var count = db.get(tags.username)
+                    var percentage = (0.1 + count/1000) * 100 /((0.1 + count/1000) + 1)
+                    client.say(channel, `@${tags.username} tu as ${count} messages contenent le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
+                } else {
+                    var percentage = (0.1+ 1/1000) * 100 / ((0.1+ 1/1000) + 1)
+                    client.say(channel, `@${tags.username} tu as 0 messages contenent le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
+                }
+                break;
+            default:
+                break;
         }
     }
 
