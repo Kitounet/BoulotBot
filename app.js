@@ -8,6 +8,7 @@ const randomChoice = require('random-choice')
 const banTime = 60
 
 const db = new JSONdb('boulotDB.json');
+const stringArray = ["RATIO + CHEH !!!", "C'est moi jte fais un boulot oui !!", "Oh mais ça va pas la tête tu t'es cru où ? AU GABON ?!", "Tiens va boire de l'eau ça va te détendre !"]
 
 // Setup connection configurations
 // These include the channel, username and password
@@ -45,7 +46,8 @@ const client = new tmi.Client({
 
             if (randomChoice([true, false], [(0.1+ count/1000), 1])) {
                 client.say(channel, `/timeout ${tags.username} ${banTime}`)
-                client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
+            var randomNumber = Math.floor(Math.random()*stringArray.length)
+                client.say(channel, `@${tags.username} ` + stringArray[randomNumber])
             }
               
         } else {
@@ -53,7 +55,8 @@ const client = new tmi.Client({
 
             if (randomChoice([true, false], [(0.1+ 1/1000), 1])) {
                 client.say(channel, `/timeout ${tags.username} ${banTime}`)
-                client.say(channel, `RATIO + CHEH @${tags.username} !!!`)
+                var randomNumber = Math.floor(Math.random()*stringArray.length)
+                client.say(channel, `@${tags.username} ` + stringArray[randomNumber])
             }
         }
     } else {
