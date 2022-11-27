@@ -37,7 +37,7 @@ const client = new tmi.Client({
     // Lack of this statement or it's inverse (!self) will make it in active
     if (self) return;
     
-    if (message.toLowerCase().includes("boulot")) {
+    if (message.toLowerCase().includes("boulot") || message.toLowerCase().includes("ax0l0tBoulot1 ax0l0tBoulot2")) {
         if (db.has(tags.username)) 
         {
             var count = db.get(tags.username)
@@ -45,7 +45,8 @@ const client = new tmi.Client({
             db.set(tags.username, count)
 
             if (randomChoice([true, false], [(0.1+ count/1000), 1])) {
-                client.say(channel, `/timeout ${tags.username} ${banTime}`)
+                if (!tags.mod)
+                    client.say(channel, `/timeout ${tags.username} ${banTime}`)
             var randomNumber = Math.floor(Math.random()*stringArray.length)
                 client.say(channel, `@${tags.username} ` + stringArray[randomNumber])
             }
@@ -54,7 +55,8 @@ const client = new tmi.Client({
             db.set(tags.username, 1)
 
             if (randomChoice([true, false], [(0.1+ 1/1000), 1])) {
-                client.say(channel, `/timeout ${tags.username} ${banTime}`)
+                if (!tags.mod)
+                    client.say(channel, `/timeout ${tags.username} ${banTime}`)
                 var randomNumber = Math.floor(Math.random()*stringArray.length)
                 client.say(channel, `@${tags.username} ` + stringArray[randomNumber])
             }
