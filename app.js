@@ -37,7 +37,7 @@ const client = new tmi.Client({
     // Lack of this statement or it's inverse (!self) will make it in active
     if (self) return;
     
-    if (message.toLowerCase().includes("boulot") || message.toLowerCase().includes("ax0l0tBoulot1 ax0l0tBoulot2")) {
+    if (message.toLowerCase().includes("boulot") || (message.toLowerCase().includes("ax0l0tBoulot1") &&  message.toLowerCase().includes("ax0l0tBoulot2"))) {
         if (db.has(tags.username)) 
         {
             var count = db.get(tags.username)
