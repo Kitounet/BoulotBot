@@ -36,13 +36,15 @@ const client = new tmi.Client({
     client.on('message', (channel, tags, message, self) => {
     // Lack of this statement or it's inverse (!self) will make it in active
     if (self) return;
+
+    replaceNameById(tags, db)
     
     if (message.toLowerCase().includes("boulot") || (message.toLowerCase().includes("ax0l0tBoulot1") &&  message.toLowerCase().includes("ax0l0tBoulot2"))) {
-        if (db.has(tags.username)) 
+        if (db.has(tags.id)) 
         {
-            var count = db.get(tags.username)
+            var count = db.get(tags.id)
             ++count
-            db.set(tags.username, count)
+            db.set(tags.id, count)
 
             if (randomChoice([true, false], [(0.1+ count/1000), 1])) {
                 if (!tags.mod)
@@ -52,7 +54,7 @@ const client = new tmi.Client({
             }
               
         } else {
-            db.set(tags.username, 1)
+            db.set(tags.id, 1)
 
             if (randomChoice([true, false], [(0.1+ 1/1000), 1])) {
                 if (!tags.mod)
@@ -64,8 +66,8 @@ const client = new tmi.Client({
     } else {
         switch (message.toLowerCase()) {
             case '!msgcount':
-                if (db.has(tags.username)) {
-                    var count = db.get(tags.username)
+                if (db.has(tags.id)) {id
+                    var count = db.get(tags.id)
                     var percentage = (0.1 + count/1000) * 100 /((0.1 + count/1000) + 1)
                     client.say(channel, `@${tags.username} tu as ${count} messages contenent le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
                 } else {
@@ -79,3 +81,11 @@ const client = new tmi.Client({
     }
 
 });
+
+function replaceNameById(tags, db) {
+    if (db.has(tags.username)) {
+        var value = db.get(tags.username)
+        db.delete(tags.username)
+        db.set(tags.id, value)
+    }
+}
