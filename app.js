@@ -40,11 +40,11 @@ const client = new tmi.Client({
     replaceNameById(tags, db)
     
     if (message.toLowerCase().includes("boulot") || (message.toLowerCase().includes("ax0l0tBoulot1") &&  message.toLowerCase().includes("ax0l0tBoulot2"))) {
-        if (db.has(tags.id)) 
+        if (db.has(tags['user-id'])) 
         {
-            var count = db.get(tags.id)
+            var count = db.get(tags['user-id'])
             ++count
-            db.set(tags.id, count)
+            db.set(tags['user-id'], count)
 
             if (randomChoice([true, false], [(0.1+ count/1000), 1])) {
                 if (!tags.mod)
@@ -54,7 +54,7 @@ const client = new tmi.Client({
             }
               
         } else {
-            db.set(tags.id, 1)
+            db.set(tags['user-id'], 1)
 
             if (randomChoice([true, false], [(0.1+ 1/1000), 1])) {
                 if (!tags.mod)
@@ -66,8 +66,8 @@ const client = new tmi.Client({
     } else {
         switch (message.toLowerCase()) {
             case '!msgcount':
-                if (db.has(tags.id)) {id
-                    var count = db.get(tags.id)
+                if (db.has(tags['user-id'])) {
+                    var count = db.get(tags['user-id'])
                     var percentage = (0.1 + count/1000) * 100 /((0.1 + count/1000) + 1)
                     client.say(channel, `@${tags.username} tu as ${count} messages contenent le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
                 } else {
@@ -86,6 +86,6 @@ function replaceNameById(tags, db) {
     if (db.has(tags.username)) {
         var value = db.get(tags.username)
         db.delete(tags.username)
-        db.set(tags.id, value)
+        db.set(tags['user-id'], value)
     }
 }
