@@ -69,10 +69,10 @@ const client = new tmi.Client({
                 if (db.has(tags['user-id'])) {
                     var count = db.get(tags['user-id'])
                     var percentage = (0.1 + count/1000) * 100 /((0.1 + count/1000) + 1)
-                    client.say(channel, `@${tags.username} tu as ${count} messages contenent le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
+                    client.say(channel, `@${tags.username} tu as ${count} messages contenant le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
                 } else {
                     var percentage = (0.1+ 1/1000) * 100 / ((0.1+ 1/1000) + 1)
-                    client.say(channel, `@${tags.username} tu as 0 messages contenent le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
+                    client.say(channel, `@${tags.username} tu as 0 messages contenant le b-word! Tu as donc ${percentage.toFixed(2)}% de chance de te faire ban !`)
                 }
                 break;
             default:
